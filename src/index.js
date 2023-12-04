@@ -1,19 +1,19 @@
-const express = require('express');
+import { createClient } from '@supabase/supabase-js';
+import key from './key.js';
+import axios from 'axios';
+import cors from 'cors';
+import express from 'express';
+import { getTestData } from './testController.js';
+
+
 
 const app = express();
 const port = 3000;
-const axios = require('axios');
-const cors = require('cors');
 
-app.get('/', (req, res) => {
-    res.send('Hello Worl2ds!');
-    res.header({
-        allow: 'GET, POST, OPTIONS',
-        'Content-type': 'application/json',
-        Data: Date.now(),
-        'Content-length': 0,
-    });
-});
+
+app.get('/', getTestData);
+
+
 app.get('/todos', cors(), (req, res) => {
     axios.get("https://jsonplaceholder.typicode.com/todos/1")
         .then(response => {
@@ -27,6 +27,7 @@ app.get('/todos', cors(), (req, res) => {
 
 
 });
+
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
