@@ -14,11 +14,11 @@ const app = express();
 const port = 3000;
 app.use(express.json());
 
-app.get('/getAcc', getAccData);
-app.get('/getAccUsername/:author', cors(), getAccDataUsername);
-app.get('/getAccEmail/:author', cors(), getAccDataEmail);
+app.get('/acc/get', getAccData);
+app.get('/acc/username/:author', cors(), getAccDataUsername);
+app.get('/acc/email/:author', cors(), getAccDataEmail);
 
-app.get('/todos', cors(), (req, res) => {
+app.get('/test', cors(), (req, res) => {
     axios.get("https://jsonplaceholder.typicode.com/todos/1")
         .then(response => {
             res.send(response.data);
@@ -31,7 +31,7 @@ app.get('/todos', cors(), (req, res) => {
 
 
 });
-app.post('/postAcc', cors(), async (req, res) => {
+app.post('/acc/post', cors(), async (req, res) => {
     console.log(req.body);
     try {
         const result = await insertDataFromJSON(req.body);
@@ -42,7 +42,7 @@ app.post('/postAcc', cors(), async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-app.patch('/updateAcc', cors(), async (req, res) => {
+app.patch('/acc/update', cors(), async (req, res) => {
     console.log(req.body);
     try {
         const result = await updateRowsWithJson(req.body);

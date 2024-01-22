@@ -28,10 +28,10 @@ export async function insertDataFromJSON(req) {
     }
 }
 export async function updateRowsWithJson(updateJson) {
-
+    console.log(updateJson);
     const { data, error } = await supabase
         .from('acc_ms')
-        .upsert([updateJson], { onConflict: ['id'] });
+        .upsert([updateJson], { onConflict: ['username'], action: 'update' });
 
     if (error) {
         console.error('Error updating rows:', error.message);
